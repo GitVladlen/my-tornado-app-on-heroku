@@ -132,25 +132,34 @@ class MessageUpdatesHandler(tornado.web.RequestHandler):
 
 
 def main():
-    app = tornado.web.Application(
-        [
-            (r"/", MainHandler),
-            (r"/a/message/new", MessageNewHandler),
-            (r"/a/message/updates", MessageUpdatesHandler),
-            ],
-        cookie_secret="_Vladlen_",
+    # app = tornado.web.Application(
+    #     [
+    #         (r"/", MainHandler),
+    #         (r"/a/message/new", MessageNewHandler),
+    #         (r"/a/message/updates", MessageUpdatesHandler),
+    #         ],
+    #     cookie_secret="_Vladlen_",
+    #     template_path=os.path.join(os.path.dirname(__file__), "templates"),
+    #     static_path=os.path.join(os.path.dirname(__file__), "static"),
+    #     xsrf_cookies=True,
+    #     debug=options.debug,
+    #     )
+    # app.listen(options.port)
+    # tornado.ioloop.IOLoop.current().start()
+
+
+    application = tornado.web.Application([
+        (r"/", MainHandler),
+        (r"/a/message/new", MessageNewHandler),
+        (r"/a/message/updates", MessageUpdatesHandler),
+        ],
         template_path=os.path.join(os.path.dirname(__file__), "templates"),
         static_path=os.path.join(os.path.dirname(__file__), "static"),
-        xsrf_cookies=True,
-        debug=options.debug,
-        )
-    app.listen(options.port)
-    tornado.ioloop.IOLoop.current().start()
-
-    # http_server = tornado.httpserver.HTTPServer(application)
-    # port = int(os.environ.get("PORT", 5000))
-    # http_server.listen(port)
-    # tornado.ioloop.IOLoop.instance().start()
+    )
+    http_server = tornado.httpserver.HTTPServer(application)
+    port = int(os.environ.get("PORT", 5000))
+    http_server.listen(port)
+    tornado.ioloop.IOLoop.instance().start()
 
 
 if __name__ == "__main__":
