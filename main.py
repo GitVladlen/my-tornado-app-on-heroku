@@ -131,11 +131,11 @@ class MessageUpdatesHandler(tornado.web.RequestHandler):
 def main():
     application = tornado.web.Application([
         (r"/", MainHandler),
-        (r"/a/message/new", MessageNewHandler),
-        (r"/a/message/updates", MessageUpdatesHandler),
+        # (r"/a/message/new", MessageNewHandler),
+        # (r"/a/message/updates", MessageUpdatesHandler),
         ],
-        template_path=os.path.join(os.path.dirname(__file__), "templates"),
-        static_path=os.path.join(os.path.dirname(__file__), "static"),
+        # template_path=os.path.join(os.path.dirname(__file__), "templates"),
+        # static_path=os.path.join(os.path.dirname(__file__), "static"),
     )
     http_server = tornado.httpserver.HTTPServer(application)
     port = int(os.environ.get("PORT", 5000))
