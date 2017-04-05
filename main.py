@@ -44,11 +44,6 @@ import uuid
 
 from tornado.concurrent import Future
 from tornado import gen
-from tornado.options import define, options, parse_command_line
-
-define("port", default=8888, help="run on the given port", type=int)
-define("debug", default=False, help="run in debug mode")
-
 
 class MessageBuffer(object):
     def __init__(self):
@@ -95,7 +90,9 @@ global_message_buffer = MessageBuffer()
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render("index.html", messages=global_message_buffer.cache)
+    #     self.render("index.html", messages=global_message_buffer.cache)\
+        self.write("Hello world")
+
 
 
 class MessageNewHandler(tornado.web.RequestHandler):
@@ -132,22 +129,6 @@ class MessageUpdatesHandler(tornado.web.RequestHandler):
 
 
 def main():
-    # app = tornado.web.Application(
-    #     [
-    #         (r"/", MainHandler),
-    #         (r"/a/message/new", MessageNewHandler),
-    #         (r"/a/message/updates", MessageUpdatesHandler),
-    #         ],
-    #     cookie_secret="_Vladlen_",
-    #     template_path=os.path.join(os.path.dirname(__file__), "templates"),
-    #     static_path=os.path.join(os.path.dirname(__file__), "static"),
-    #     xsrf_cookies=True,
-    #     debug=options.debug,
-    #     )
-    # app.listen(options.port)
-    # tornado.ioloop.IOLoop.current().start()
-
-
     application = tornado.web.Application([
         (r"/", MainHandler),
         (r"/a/message/new", MessageNewHandler),
